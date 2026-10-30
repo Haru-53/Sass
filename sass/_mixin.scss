@@ -1,0 +1,6 @@
+@use "variable" as v;
+
+@mixin box-frame($padding) {
+  padding: $padding;
+  background-color: v.$white;
+}

@@ -1,0 +1,103 @@
+@use "variable" as v;
+@use "mixin" as m;
+
+.puzzle {
+  width: v.$sidebar-width + v.$main-width;
+}
+
+.header {
+  position: relative;
+  width: v.$sidebar-width + v.$main-width;
+  height: v.$header-height;
+  background-color: v.$navy;
+
+  &__boxes {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: v.$box-gap;
+
+    @include m.box-frame(10px);
+  }
+
+  &__box {
+    width: 40px;
+    height: 40px;
+
+    @each $className in v.$classNames {
+      $index: index(v.$classNames, $className);
+
+      &--#{$className} {
+        background-color: nth(v.$buttonColor, $index);
+      }
+    }
+  }
+}
+
+// 修正後の .box-container の例
+.box-container {
+  gap: v.$box-gap; // v に修正
+  display: flex;
+
+  // v.$colors が (name: color) のマップである場合の書き方例
+  // @each $name, $color in v.$colors {
+  //   .box--#{$name} {
+  //     background-color: $color;
+  //   }
+  // }
+}
+
+.content {
+  display: flex;
+}
+
+.sidebar {
+  width: v.$sidebar-width;
+  height: v.$main-height;
+  flex-shrink: 0;
+  background-color: v.$green;
+}
+
+.main {
+  width: v.$main-width;
+  height: v.$main-height;
+  background-color: v.$red;
+
+  &__boxes {
+    display: flex;
+    flex-direction: column;
+    gap: v.$box-gap;
+    margin: 40px;
+    padding: 5px;
+  }
+
+  &__box {
+    width: 150px;
+    height: 50px;
+    padding: 5px;
+    background-color: v.$white;
+    border: 5px solid v.$white;
+
+    p {
+      width: 140px;
+      height: 40px;
+      padding: 2px 3px;
+      color: v.$white;
+    }
+
+    @each $className in v.$classNames {
+      $index: index(v.$classNames, $className);
+
+      &--#{$className} {
+        background-color: nth(v.$buttonColor, $index);
+      }
+    }
+  }
+}
+
+.footer {
+  width: v.$sidebar-width + v.$main-width;
+  height: v.$footer-height;
+  background-color: v.$brown;
+}
